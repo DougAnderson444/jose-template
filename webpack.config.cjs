@@ -1,7 +1,7 @@
-const pkg = require('./package.json')
+const pkg = require('./package.json') // cannot import .json in mjs
 const path = require('path')
-const mode = 'development' // 'production' // 'development' //
 
+const mode = 'development' // 'production' // 'development' //
 const entry = './src/main.mjs'
 
 module.exports = [

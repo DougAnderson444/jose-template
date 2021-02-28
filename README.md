@@ -4,7 +4,7 @@ Using panva/jose in node and in the browser.
 
 Rollup breaks since it resolves the es module even though `browser: true` is set.
 
-So webpack needs to be used to resolve the browser field.
+So webpack needs to be used to resolve the browser field of the `panva exports`.
 
 ```json
 // in jose/package.json
