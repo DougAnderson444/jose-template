@@ -1,3 +1,6 @@
+/*
+Note: Doesn't work  as nodeResolve doesn't resolve the browser field of panva/jose
+*/
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import pkg from './package.json'
