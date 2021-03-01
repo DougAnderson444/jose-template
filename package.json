@@ -1,7 +1,7 @@
 {
   "name": "jose-universal-lib",
-  "version": "1.0.1",
-  "main": "src/main.mjs",
+  "version": "1.0.2",
+  "main": "dist/jose.cjs.js",
   "module": "src/main.mjs",
   "browser": "dist/jose.browser.js",
   "type": "module",
@@ -10,6 +10,7 @@
     "build": "webpack",
     "dev": "rollup -c -w",
     "test:es": "mocha test/index.esm.mjs",
+    "test:cjs": "mocha test/index.cjs.cjs",
     "test:browser": "web-test-runner test/index.browser.mjs",
     "test": "npm run test:browser && npm run test:es",
     "pretest": "npm run build"
