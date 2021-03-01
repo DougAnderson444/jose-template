@@ -15,6 +15,10 @@ So webpack needs to be used to resolve the browser field of the `panva exports`.
     "require": "./dist/node/cjs/jwk/parse.js"
 ```
 
+## Node Version
+
+12+
+
 ## License
 
 [MIT](LICENSE).
