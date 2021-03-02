@@ -18,7 +18,7 @@ module.exports = [
     },
     mode,
     resolve: {
-      mainFields: ['browser']
+      mainFields: ['browser', 'module', 'main']
     }
   },
   {
@@ -29,7 +29,7 @@ module.exports = [
       path: path.resolve(__dirname, '')
     },
     resolve: {
-      mainFields: ['main']
+      mainFields: ['main', 'module']
     }
   }
 ]
