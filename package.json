@@ -16,7 +16,9 @@
     "pretest": "npm run build"
   },
   "dependencies": {
-    "jose": "^3.6.2"
+    "canonicalize": "^1.0.5",
+    "jose": "^3.6.2",
+    "sodium-universal": "^3.0.4"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.3.0",
