@@ -2,6 +2,8 @@
 
 I was building a library for both Nodejs and the Browser and needed a setup that ensures the same code and the same tests work in both.
 
+It's isomorphic, but unfortunately since the WebCrypto API only supports the P-256 Elliptic curve, that's the only curve that is isomorphic using the panva/jose library.
+
 ## Use it
 
 Clone this repo 
