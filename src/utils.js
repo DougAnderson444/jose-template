@@ -1,19 +1,21 @@
-import parseJwk from 'jose/jwk/parse'
-import CompactSign from 'jose/jws/compact/sign'
-import compactVerify from 'jose/jws/compact/verify'
-import { encode, decode } from 'jose/util/base64url'
+const sodium = require('sodium-universal')
+// const hcrypto = require('hypercore-crypto')
+const { default: parseJwk } = require('jose/jwk/parse')
+const { default: CompactSign } = require('jose/jws/compact/sign')
+const { default: compactVerify } = require('jose/jws/compact/verify')
+const { decode, encode } = require('jose/util/base64url')
 
-import canonicalize from 'canonicalize'
-import sodium from 'sodium-universal'
+const canonicalize = require('canonicalize')
 
-// privateKey must be in KeyLike format
-async function getCompactJWS (data, secretKey, alg = 'EdDSA') {
-  if (!Buffer.isBuffer(secretKey)) secretKey = Buffer.from(secretKey, 'hex')
+function hashIt (data) {
+  const dataBuffer = Buffer.from(data)
+  const hash = Buffer.allocUnsafe(sodium.crypto_generichash_BYTES)
+  sodium.crypto_generichash(hash, dataBuffer)
+  return hash
+}
 
-  const privateKeyJwk = privateKeyJwkFromEd25519PrivateKey(secretKey)
-
+async function getCompactJWS (data, privateKeyJwk, alg = 'EdDSA') {
   const privateKeyLike = await parseJwk({ ...privateKeyJwk, alg }) // Returns: Promise<KeyLike>
-  console.log()
 
   // Compact JWS Signature
   const encoder = new TextEncoder()
@@ -28,6 +30,7 @@ async function getCompactJWS (data, secretKey, alg = 'EdDSA') {
 
 // private JWK is simply the private key as d and x
 const privateKeyJwkFromEd25519PrivateKey = (Ed25519privateKey) => {
+  if (!Buffer.isBuffer(Ed25519privateKey)) Ed25519privateKey = Buffer.from(Ed25519privateKey, 'hex')
   const jwk = {
     crv: 'Ed25519',
     d: encode(Ed25519privateKey.slice(0, 32)),
@@ -72,7 +75,7 @@ async function validatePayload (jwsCompact, publicKeyJwk, alg = 'EdDSA') {
   try {
     const publicKeyLike = await parseJwk({ ...publicKeyJwk, alg })
     const { payload, protectedHeader } = await compactVerify(jwsCompact, publicKeyLike)
-
+    if (!payload) return false
     // console.log(protectedHeader)
     // console.log(decoder.decode(payload))
     // verify success
@@ -84,10 +87,12 @@ async function validatePayload (jwsCompact, publicKeyJwk, alg = 'EdDSA') {
   }
 }
 
-// module.exports
-export {
+module.exports =
+{
   compactVerify,
   publicKeyJwkFromPublicKey,
+  privateKeyJwkFromEd25519PrivateKey,
   getCompactJWS,
-  validatePayload
+  validatePayload,
+  hashIt
 }

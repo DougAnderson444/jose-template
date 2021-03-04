@@ -1,40 +1,48 @@
 {
-  "name": "jose-universal-lib",
-  "version": "1.0.2",
-  "main": "dist/jose.cjs.js",
-  "module": "src/main.mjs",
-  "browser": "dist/jose.browser.js",
-  "type": "module",
+  "name": "jose-utils",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.js",
+  "browser": "dist/index.browser.js",
   "scripts": {
-    "build:rollup": "rollup -c",
     "build": "webpack",
-    "dev": "rollup -c -w",
-    "test:es": "mocha test/index.esm.mjs",
-    "test:cjs": "mocha test/index.cjs.cjs",
-    "test:browser": "web-test-runner test/index.browser.mjs",
-    "test": "npm run test:browser && npm run test:es",
+    "test:node": "mocha test/test.js",
+    "test:web:headless": "karma start --single-run --browsers ChromeHeadless",
+    "test:web:headfull": "webpack --config webpack.build.tests.config.js && start example.html",
+    "test": "npm run test:node && npm run test:web:headless",
     "pretest": "npm run build"
   },
-  "dependencies": {
-    "canonicalize": "^1.0.5",
-    "jose": "^3.6.2",
-    "sodium-universal": "^3.0.4"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DougAnderson444/isomorhpic-tested-framework.git"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DougAnderson444/isomorhpic-tested-framework/issues"
+  },
+  "homepage": "https://github.com/DougAnderson444/isomorhpic-tested-framework#readme",
   "devDependencies": {
-    "@esm-bundle/chai": "^4.3.0",
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "@web/test-runner": "^0.12.15",
     "chai": "^4.3.0",
-    "esm": "^3.2.25",
+    "crypto-browserify": "^3.12.0",
+    "karma": "^6.1.1",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-mocha": "^2.0.1",
+    "karma-webpack": "^5.0.0",
     "mocha": "^8.3.0",
-    "rollup": "^2.39.1",
+    "terser-webpack-plugin": "^5.1.1",
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0"
   },
-  "files": [
-    "dist"
-  ],
-  "repository": "https://github.com/DougAnderson444/jose-template",
-  "license": "MIT"
+  "engines": {
+    "node": ">=0.14.x"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "canonicalize": "^1.0.5",
+    "jose": "^3.6.2",
+    "sodium-universal": "^3.0.4"
+  }
 }

@@ -1,4 +1,12 @@
 language: node_js
 node_js:
-  - '14'
-  - '12'
+  - "12"
+
+sudo: false
+
+before_script:
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
+  - node --version
+
+script:
+  - npm test -- --allow-chrome-as-root
